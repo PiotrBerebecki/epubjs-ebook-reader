@@ -7,8 +7,10 @@
   },
   "dependencies": {
     "epubjs": "^0.2.16",
+    "localforage": "^1.5.0",
     "react": "^15.5.4",
-    "react-dom": "^15.5.4"
+    "react-dom": "^15.5.4",
+    "react-reader": "^0.13.3"
   },
   "scripts": {
     "start": "react-scripts start",
