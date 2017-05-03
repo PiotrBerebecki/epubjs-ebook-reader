@@ -1,44 +1,34 @@
-import React, {Component} from 'react'
-import {EpubView} from 'react-reader'
-import { localforage } from 'localforage';
-import './books/moby-dick.epub';
+import React, { Component } from 'react';
 
-// console.log('book', book.length);
-const epubOptions = {
-    disableSrcdoc: true // If you use react-reader within cordova you need to set this because cordova webview will silently disable srcdoc for iframes, see https://issues.apache.org/jira/browse/CB-7379
-}
+import {
+  EpubView, // Underlaying epub-canvas (wrapper for epub.js iframe)
+  EpubViewStyle, // Styles for EpubView, you can pass it to the instance as a style prop for customize it
+  ReactReader, // A simple epub-reader with left/right button and chapter navigation
+  ReactReaderStyle, // Styles for the epub-reader it you need to customize it
+} from 'react-reader';
 
-console.log('localforage', localforage);
+// localforage.setItem('key','moby-dick' ).then(() => {
+//   console.log('ran' );
+// })
+
 class App extends Component {
-  constructor(props){
-    super(props)
-
+  saveBook = () => {
     this.saveBook = this.saveBook.bind(this);
-  }
+  };
 
-  saveBook(){
-    localforage.setItem('key','moby-dick' ).then(() => {
-      console.log('ran' );
-    })
-  }
-
-
-  render () {
+  render() {
     return (
-      /* The ReactReader will expand to 100% of width/height, so be sure
-       * to set a height on the parent element, either with position it
-       * absolute of window, set height or use paddingTop for
-       * proporsjonal scaling */
-      <div style={{position: 'relative', height: '100%'}}>
-        <EpubView 
-          url={'./books/moby-dick.epub'} 
-          locationChanged={(epubcifi) => console.log(epubcifi)}
-          tocChanged={(toc) => console.log(toc)}
-          epubOptions={epubOptions}
+      <div style={{ position: 'relative', height: '100vh' }}>
+        <ReactReader
+          // url={'https://s3-eu-west-1.amazonaws.com/react-reader/alice.epub'}
+          url={'moby-dick.epub'}
+          title={'Moby moby'}
+          location={'epubcfi(/6/2[cover]!/6)'}
+          // location={'./books/moby-dick.epub'}
+          locationChanged={epubcifi => console.log(epubcifi)}
         />
-        <button onClick={this.saveBook}></button>
       </div>
-    )
+    );
   }
 }
 
